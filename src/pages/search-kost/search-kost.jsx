@@ -1,13 +1,12 @@
 import React from "react";
 
 export default function SearchKost() {
-  // Fungsi pembantu agar React & Vite bisa membaca gambar dari folder public/images-hunika/ secara dinamis
   const getImageUrl = (name) => {
-    return new URL(`/images-hunika/${name}`, import.meta.url).href;
-  };
+  return `/images-hunika/${name}`;
+};
 
   const kostList = [
-    { img: getImageUrl("1.jpg"), name: "Kost Melati Residence", loc: "Jakarta Selatan - Kebayoran Baru", price: "1.200.000" },
+    { img: "/images-hunika/1.jpg", name: "Kost Melati Residence", loc: "Jakarta Selatan - Kebayoran Baru", price: "1.200.000" },
     { img: getImageUrl("2.jpg"), name: "Kost Bintaro Indah", loc: "Jakarta Selatan - Bintaro", price: "1.500.000" },
     { img: getImageUrl("3.jpg"), name: "Kost Mawar Kemang", loc: "Jakarta Selatan - Kemang", price: "1.100.000" },
     { img: getImageUrl("4.jpg"), name: "Kost Casabella", loc: "Jakarta Selatan - Pondok Indah", price: "2.000.000" },
