@@ -1,9 +1,9 @@
-import SearchKost from './pages/search-kost/search-kost';
+import React from 'react';
 
-const App = () => {
-  return (
-    <SearchKost />
-  );
+import SearchKost from './pages/search-kost/search-kost'; 
+
+function App() {
+  return <SearchKost />;
 }
 
 export default App;
