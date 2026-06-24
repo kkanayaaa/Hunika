@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function SearchKost() {
-  const getImageUrl = (name) => {
+ const getImageUrl = (name) => {
   return `/images-hunika/${name}`;
 };
 
@@ -71,7 +71,7 @@ export default function SearchKost() {
           <div className="mb-6">
             <h3 className="font-semibold text-gray-800 mb-3">Fasilitas</h3>
             <div className="space-y-2 text-gray-600">
-              {["AC", "WiFi", "Parkir", "KM Dalam"].map((item) => (
+              {["AC", "WiFi", "Parkir", "Kamar Mandi Dalam"].map((item) => (
                 <label key={item} className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" className="rounded text-green-600 focus:ring-green-500" /> {item}
                 </label>
