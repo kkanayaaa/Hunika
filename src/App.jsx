@@ -1,9 +1,19 @@
-import React from 'react';
+import { Routes, Route } from "react-router-dom";
 
-import SearchKost from './pages/search-kost/search-kost'; 
+import Login from "./pages/login/login";
+import SearchKost from "./pages/search-kost/search-kost";
+import Profile from "./pages/profile/profile";
+import DetailKost from "./pages/detail-kost/detail-kost";
 
 function App() {
-  return <SearchKost />;
+  return (
+    <Routes>
+      <Route path="/" element={<SearchKost />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/kost/:id" element={<DetailKost />} />
+    </Routes>
+  );
 }
 
 export default App;
