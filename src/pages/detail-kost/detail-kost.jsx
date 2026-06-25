@@ -119,7 +119,7 @@ export default function DetailKost() {
       rating: 5,
       description:
         "Kamar eksklusif dengan balkon, private bathroom, kulkas, TV,layanan laundry, dan Pantry.",
-      facilities: ["AC", "WiFi", "Parkir", "Kamar Mandi Dalam"],
+      facilities: ["AC", "WiFi", "Parkir", "Kamar Mandi Dalam", "Pantry"],
     },
     12: {
       name: "Kost Setia",
@@ -129,7 +129,7 @@ export default function DetailKost() {
       rating: 5,
       description:
         "Kamar siap huni (full furnished) dengan fasilitas lengkap, area komunal yang nyaman, dan lingkungan yang tenang.",
-      facilities: ["AC", "WiFi", "Parkir", "Kamar Mandi Dalam"],
+      facilities: ["AC", "WiFi", "Parkir", "Kamar Mandi Dalam", "Pantry"],
     },
   };
 
