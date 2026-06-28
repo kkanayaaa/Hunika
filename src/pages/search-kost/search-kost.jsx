@@ -249,7 +249,7 @@ const filteredKost = kostList.filter((kost) => {
             {filteredKost.map((kost) => (
               <Link
               key={kost.id}
-              to={`/kost/${kost.id}`}
+              to={`/detail/${kost.id}`}
               className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition border border-slate-100 block"
               >
               <img

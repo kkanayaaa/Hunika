@@ -1,9 +1,44 @@
-
+import { Routes, Route } from 'react-router-dom'
 import { useState } from 'react';
 import Navbar from './components/Navbar';
+import Login from './pages/login/login';
+import Profile from './pages/profile/profile'
+import SearchKost from './pages/search-kost/search-kost';
+import DetailKost from './pages/detail-kost/detail-kost';
+import DashboardPemilik from './pages/Pemilik/DashboardPemilik';
+import TambahKos from './pages/Pemilik/TambahKos';
+import ReviewKos from './pages/Review/ReviewKos';
+
 
 const App = () =>{
-  
+  return (
+    <div className='in-h-screen bg-slate-50 text-slate-800'>
+      <Navbar />
+
+      {/* Konten halaman yang berubah secara dinamis sesuai URL */}
+      <div className="p-6">
+        <Routes>
+          {/* Halaman Utama: Pencarian Kos */}
+          <Route path="/" element={<SearchKost />} />
+
+          {/* Halaman Detail Kos (Menggunakan parameter ID unik kos) */}
+          <Route path="/detail/:id" element={<DetailKost />} />
+
+          {/* Halaman Otentikasi & Akun */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+
+          {/* Halaman Review Kos Milikmu */}
+          <Route path="/review" element={<ReviewKos />} />
+
+          {/* Halaman Panel Manajemen Pemilik Kos */}
+          <Route path="/dashboard-pemilik" element={<DashboardPemilik />} />
+          <Route path="/tambah-kos" element={<TambahKos />} />
+        </Routes>
+      </div>
+    </div>
+    
+  );
 } 
 
 export default App;
