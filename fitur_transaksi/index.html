@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Transaksi Booking Kost</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f5f7fb;
+      color:#222;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+      background:white;
+      padding:18px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .logo{
+      font-size:24px;
+      font-weight:bold;
+      color:#1D9E75;
+    }
+
+    .menu{
+      display:flex;
+      gap:25px;
+    }
+
+    .menu a{
+      text-decoration:none;
+      color:#555;
+      font-size:14px;
+    }
+
+    /* HEADER */
+
+    .header{
+      background:linear-gradient(to right,#e7fff7,#f4fffb);
+      padding:60px 20px;
+      text-align:center;
+    }
+
+    .header h1{
+      font-size:40px;
+      margin-bottom:15px;
+    }
+
+    .header p{
+      color:#666;
+    }
+
+    /* MAIN */
+
+    .container{
+      width:90%;
+      margin:40px auto;
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:25px;
+    }
+
+    .card{
+      background:white;
+      padding:30px;
+      border-radius:18px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .card h2{
+      margin-bottom:25px;
+      color:#1D9E75;
+    }
+
+    /* PAYMENT METHOD */
+
+    .payment-methods{
+      display:grid;
+      gap:20px;
+    }
+
+    .payment-card{
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:25px;
+      transition:0.3s;
+      cursor:pointer;
+    }
+
+    .payment-card:hover{
+      border-color:#1D9E75;
+      background:#f8fffc;
+    }
+
+    .payment-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:15px;
+    }
+
+    .payment-title h3{
+      font-size:20px;
+    }
+
+    .badge{
+      background:#e7fff7;
+      color:#0f6e56;
+      padding:6px 12px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:bold;
+    }
+
+    .payment-desc{
+      color:#666;
+      font-size:14px;
+      margin-bottom:20px;
+      line-height:1.6;
+    }
+
+    /* QR */
+
+    .qr-box{
+      width:220px;
+      height:220px;
+      background:#f1f5f9;
+      border-radius:15px;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      color:#777;
+      border:2px dashed #ccc;
+    }
+
+    /* BANK */
+
+    .bank-info{
+      background:#f9fafb;
+      padding:20px;
+      border-radius:12px;
+      margin-top:20px;
+    }
+
+    .bank-item{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:15px;
+      font-size:14px;
+    }
+
+    /* FORM */
+
+    .form-group{
+      margin-top:25px;
+    }
+
+    .form-group label{
+      display:block;
+      margin-bottom:10px;
+      font-size:14px;
+      font-weight:bold;
+    }
+
+    .form-group input{
+      width:100%;
+      padding:14px;
+      border:1px solid #ddd;
+      border-radius:10px;
+      outline:none;
+    }
+
+    /* BUTTON */
+
+    .btn{
+      width:100%;
+      padding:16px;
+      border:none;
+      border-radius:12px;
+      background:#1D9E75;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+      margin-top:25px;
+    }
+
+    /* SUMMARY */
+
+    .summary-box{
+      background:#f9fafb;
+      padding:20px;
+      border-radius:15px;
+    }
+
+    .summary-item{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:15px;
+      font-size:14px;
+    }
+
+    .total{
+      border-top:1px solid #ddd;
+      padding-top:15px;
+      margin-top:15px;
+      color:#1D9E75;
+      font-size:20px;
+      font-weight:bold;
+    }
+
+    /* STATUS */
+
+    .status{
+      margin-top:20px;
+      padding:15px;
+      border-radius:10px;
+      background:#e7fff7;
+      color:#0f6e56;
+      text-align:center;
+      font-weight:bold;
+    }
+
+    /* TIMER */
+
+    .timer{
+      margin-top:20px;
+      background:#fff8e7;
+      color:#9a6700;
+      padding:15px;
+      border-radius:10px;
+      text-align:center;
+      font-size:14px;
+      font-weight:bold;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px){
+
+      .container{
+        grid-template-columns:1fr;
+      }
+
+      .menu{
+        display:none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <div class="navbar">
+
+    <div class="logo">
+      KostKu
+    </div>
+
+    <div class="menu">
+      <a href="#">Home</a>
+      <a href="#">Booking</a>
+      <a href="#">Transaksi</a>
+      <a href="#">Kontak</a>
+    </div>
+
+  </div>
+
+  <!-- HEADER -->
+
+  <section class="header">
+
+    <h1>Pembayaran Booking Kost</h1>
+
+    <p>
+      Selesaikan pembayaran untuk mengamankan kamar pilihanmu
+    </p>
+
+  </section>
+
+  <!-- MAIN -->
+
+  <div class="container">
+
+    <!-- LEFT -->
+
+    <div>
+
+      <!-- QRIS -->
+
+      <div class="card">
+
+        <h2>Pembayaran QRIS</h2>
+
+        <div class="payment-methods">
+
+          <div class="payment-card">
+
+            <div class="payment-title">
+
+              <h3>QRIS Payment</h3>
+
+              <div class="badge">
+                Recommended
+              </div>
+
+            </div>
+
+            <div class="payment-desc">
+
+              Scan QR menggunakan:
+              DANA, OVO, GoPay, Mobile Banking,
+              ShopeePay, dan aplikasi pembayaran lainnya.
+
+            </div>
+
+            <div class="qr-box">
+              QR CODE
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- TRANSFER -->
+
+      <div class="card" style="margin-top:25px;">
+
+        <h2>Transfer Bank</h2>
+
+        <div class="payment-card">
+
+          <div class="payment-title">
+
+            <h3>Virtual Account</h3>
+
+            <div class="badge">
+              Bank Transfer
+            </div>
+
+          </div>
+
+          <div class="payment-desc">
+
+            Transfer sesuai total pembayaran ke nomor virtual account berikut.
+
+          </div>
+
+          <div class="bank-info">
+
+            <div class="bank-item">
+              <span>Bank</span>
+              <strong>BCA</strong>
+            </div>
+
+            <div class="bank-item">
+              <span>Nomor VA</span>
+              <strong>88081234567890</strong>
+            </div>
+
+            <div class="bank-item">
+              <span>Atas Nama</span>
+              <strong>KostKu Indonesia</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- UPLOAD -->
+
+      <div class="card" style="margin-top:25px;">
+
+        <h2>Upload Bukti Pembayaran</h2>
+
+        <div class="form-group">
+
+          <label>Pilih File</label>
+
+          <input type="file">
+
+        </div>
+
+        <button class="btn">
+          Konfirmasi Pembayaran
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="card">
+
+      <h2>Detail Transaksi</h2>
+
+      <div class="summary-box">
+
+        <div class="summary-item">
+          <span>ID Booking</span>
+          <strong>BK-20260607</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Nama Kost</span>
+          <strong>Melati Residence</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Kamar</span>
+          <strong>VIP Room</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Durasi</span>
+          <strong>1 Bulan</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Tanggal Masuk</span>
+          <strong>07 Juni 2026</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Biaya Tambahan</span>
+          <strong>Rp 150.000</strong>
+        </div>
+
+        <div class="summary-item total">
+          <span>Total Pembayaran</span>
+          <strong>Rp 1.650.000</strong>
+        </div>
+
+      </div>
+
+      <div class="timer">
+        Selesaikan pembayaran dalam 23:59:12
+      </div>
+
+      <div class="status">
+        Status : Menunggu Pembayaran
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
