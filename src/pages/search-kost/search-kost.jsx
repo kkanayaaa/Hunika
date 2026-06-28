@@ -74,7 +74,7 @@ const filteredKost = kostList.filter((kost) => {
   return (
     <div className="bg-slate-100 min-h-screen text-slate-800 font-sans">
       {/* NAVBAR */}
-      <nav className="bg-white px-12 py-4 flex justify-between items-center shadow-md">
+      {/* <nav className="bg-white px-12 py-4 flex justify-between items-center shadow-md">
         <div className="text-3xl font-bold text-green-600">Hunika</div>
 
         <ul className="flex gap-8">
@@ -144,7 +144,7 @@ const filteredKost = kostList.filter((kost) => {
        </Link>
        )}
 
-        </nav>
+        </nav> */}
 
        {/*  <Navbar 
         isLoggedIn={isLoggedIn} 

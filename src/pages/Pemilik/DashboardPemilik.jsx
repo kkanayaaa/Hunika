@@ -48,7 +48,7 @@ function DashboardPemilik({onViewChange}) {
   return (
     <>
       
-      <Navbar isLoggedIn={true} role="pemilik" />
+      {/* <Navbar isLoggedIn={true} role="pemilik" /> */}
 
       <main class="max-w-6xl mx-auto px-6 py-10">
         

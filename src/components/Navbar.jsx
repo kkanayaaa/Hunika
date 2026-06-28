@@ -17,8 +17,18 @@ export default function Navbar({ isLoggedIn, role, onLogout }) {
             Cari Kos
           </NavLink>
         )}
-        {isLoggedIn && role === 'pencari' && (
+        {/* {isLoggedIn && role === 'pemilik' && (
           <NavLink to="/dashboard-pemilik" className={({ isActive }) => isActive ? "text-emerald-600 border-b-2 border-emerald-600 pb-1" : "hover:text-emerald-600"}>
+            Dashboard Pemilik
+          </NavLink>
+        )} */}
+
+        {/* Menu untuk Pemilik (Muncul jika sudah login) */}
+        {isLoggedIn && (
+          <NavLink 
+            to="/dashboard-pemilik" 
+            className={({ isActive }) => isActive ? "text-emerald-600 border-b-2 border-emerald-600 pb-1" : "hover:text-emerald-600"}
+          >
             Dashboard Pemilik
           </NavLink>
         )}
@@ -50,8 +60,8 @@ export default function Navbar({ isLoggedIn, role, onLogout }) {
           </div>
         ) : (
           <>
-            {/* <Link to="/login" className="px-4 py-2 text-slate-600 hover:text-slate-800 font-medium text-sm">Masuk</Link> */}
-            <Link to="/login" className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm rounded-xl">Login</Link>
+            <Link to="/login" className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm rounded-xl">Masuk</Link>
+            {/* <Link to="/register" className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm rounded-xl">Daftar</Link> */}
           </>
         )}
       </div>

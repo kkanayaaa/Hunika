@@ -38,7 +38,7 @@ const handleLogout = () => {
           <Route path="/detail/:id" element={<DetailKost />} />
 
           {/* Halaman Otentikasi & Akun */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/profile" element={<Profile />} />
 
           {/* Halaman Review Kos Milikmu */}

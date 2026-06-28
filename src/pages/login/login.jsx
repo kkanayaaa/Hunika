@@ -1,20 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({setIsLoggedIn}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
+  // Menggabungkan logika login ke dalam satu fungsi saja
   const handleSubmit = (e) => {
-  e.preventDefault();
-
-  localStorage.setItem("isLogin", "true");
-  localStorage.setItem("email", email);
-
-  navigate("/");
-};
+    e.preventDefault(); 
+    
+    // Cek email/password dari state
+    if (email === "user@gmail.com" && password === "123") {
+      localStorage.setItem("isLogin", "true"); 
+      setIsLoggedIn(true);                     
+      navigate("/");                           
+    } else {
+      alert("Email atau Password salah!");
+    }
+  };
 
   return (
     <div className="bg-slate-100 h-screen flex justify-center items-center">
@@ -42,16 +47,16 @@ export default function Login() {
       value={password}
       onChange={(e) => setPassword(e.target.value)}
       className="w-full p-3 border border-gray-300 rounded-lg"
-     />
+      />
 
       <button
       type="submit"
       className="w-full mt-2 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600"
       >
-     Login
-     </button>
+      Login
+      </button>
 
-     </form>
+      </form>
       </div>
     </div>
   );
