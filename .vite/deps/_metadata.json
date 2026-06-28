@@ -1,25 +1,44 @@
 {
+<<<<<<< HEAD
   "hash": "3172ce15",
   "configHash": "6b4a4745",
   "lockfileHash": "734a0f59",
   "browserHash": "bc1e1743",
+=======
+  "hash": "7c25d8c4",
+  "configHash": "11204c17",
+  "lockfileHash": "a955bfee",
+  "browserHash": "8f2ec99a",
+>>>>>>> origin/fitur-review-kos
   "optimized": {
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
+<<<<<<< HEAD
       "fileHash": "a678d6bd",
+=======
+      "fileHash": "a3ffd430",
+>>>>>>> origin/fitur-review-kos
       "needsInterop": true
     },
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
+<<<<<<< HEAD
       "fileHash": "f7a25f45",
+=======
+      "fileHash": "54b63de8",
+>>>>>>> origin/fitur-review-kos
       "needsInterop": true
     },
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
+<<<<<<< HEAD
       "fileHash": "d3ed0f5e",
+=======
+      "fileHash": "15ad01ab",
+>>>>>>> origin/fitur-review-kos
       "needsInterop": true
     }
   },
