@@ -13,7 +13,11 @@ import ReviewKos from './pages/Review/ReviewKos';
 const App = () =>{
   return (
     <div className='in-h-screen bg-slate-50 text-slate-800'>
-      <Navbar />
+      <Navbar 
+      isLoggedIn={isLoggedIn} 
+      role="pencari" 
+      onLogout={handleLogout}
+      />
 
       {/* Konten halaman yang berubah secara dinamis sesuai URL */}
       <div className="p-6">
