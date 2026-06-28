@@ -1,8 +1,19 @@
 import { useState } from 'react';
-import Navbar from './components/Navbar';
+import DashboardPemilik from './pages/Pemilik/DashboardPemilik';
+import TambahKos from './pages/Pemilik/TambahKos';
 
-const App = () =>{
-  
-} 
+const App = () => {
+  const [currentView, setCurrentView] = useState('Dashboard');
 
-export default App
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {currentView === 'DashboardPemilik' ? (
+        <DashboardPemilik onViewChange={() => setCurrentView('tambah-kos')} />
+      ) : (
+        <TambahKos onViewChange={() => setCurrentView('DashboardPemilik')} />
+      )}
+    </div>
+  );
+}
+
+export default App;

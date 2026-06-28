@@ -4,7 +4,7 @@ import CardWrapper from '../../components/CardWrapper';
 import Button from '../../components/Button';
 import TambahKos from './TambahKos';
 
-function DashboardPemilik({setPage}) {
+function DashboardPemilik({onViewChange}) {
   // state untuk kontrol buka/tutup Modal Edit
   const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -61,7 +61,7 @@ function DashboardPemilik({setPage}) {
 
         
           <Button 
-          onClick={() => setPage('TambahKos')}
+          onClick={() => onViewChange('TambahKos')}
           variant="emerald">
             <span class="font-bold">+</span> Tambah Kos
           </Button>

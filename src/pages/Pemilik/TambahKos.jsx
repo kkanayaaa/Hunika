@@ -3,7 +3,7 @@ import Navbar from '../../components/Navbar';
 import CardWrapper from '../../components/CardWrapper'; 
 import Button from '../../components/Button'; 
 
-function TambahKos({setPage}) {
+function TambahKos({onViewChange}) {
   
   const [formData, setFormData] = useState({
     namaKos: '',
@@ -80,7 +80,7 @@ function TambahKos({setPage}) {
               
               <button 
                 type="button"
-                onClick={() => setPage('DashboardPemilik')}
+                onClick={() => onViewChange('DashboardPemilik')}
                 className="text-xs text-gray-400 font-semibold hover:text-emerald-600 flex items-center gap-1.5 mb-1 group transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3 h-3 transform group-hover:-translate-x-0.5 transition-transform">
