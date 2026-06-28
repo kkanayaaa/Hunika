@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function SearchKost() {
 const [selectedFacility, setSelectedFacility] = useState([]);
@@ -13,15 +13,18 @@ const [isLogin, setIsLogin] = useState(
   localStorage.getItem("isLogin") === "true"
 );
 
- useEffect(() => {
- const status = localStorage.getItem("isLogin");
- setIsLogin(status === "true");
- }, []);
+useEffect(() => {
+const status = localStorage.getItem("isLogin");
+setIsLogin(status === "true");
+}, []);
+
 const handleLogout = () => {
   localStorage.removeItem("isLogin");
   setIsLogin(false);
 };
 
+const [search, setSearch] = useState("");
+const [maxPrice,setMaxPrice]=useState("");
 const [showMenu, setShowMenu] = useState(false);
 
 const kostList = [
@@ -40,47 +43,77 @@ const kostList = [
   ];
 
 const filteredKost = kostList.filter((kost) => {
+
   const facilityMatch =
     selectedFacility.length === 0 ||
     selectedFacility.every((facility) =>
-    kost.facilities.includes(facility)
-  );
+      kost.facilities.includes(facility)
+    );
 
   const roomMatch =
     selectedRoomType === "" ||
     kost.roomType === selectedRoomType;
 
-  return facilityMatch && roomMatch;
-});
+  const searchMatch =
+    kost.name.toLowerCase().includes(search.toLowerCase()) ||
+    kost.loc.toLowerCase().includes(search.toLowerCase()) ||
+    kost.facilities.some((facility) =>
+      facility.toLowerCase().includes(search.toLowerCase())
+    );
+
+  const price = Number(kost.price.replace(/\./g, ""));
+
+  const inputPrice = Number(maxPrice.replace(/\./g, ""));
+
+  const priceMatch =
+    maxPrice === "" || price <= inputPrice;
+    return facilityMatch && roomMatch && searchMatch && priceMatch;
+  });
 
   return (
     <div className="bg-slate-100 min-h-screen text-slate-800 font-sans">
       {/* NAVBAR */}
       <nav className="bg-white px-12 py-4 flex justify-between items-center shadow-md">
-        <div className="text-2xl font-bold text-green-600">Hunika</div>
+        <div className="text-3xl font-bold text-green-600">Hunika</div>
 
         <ul className="flex gap-8">
-          <li><a href="#" className="text-gray-700 hover:text-green-600">Cari Kost</a></li>
-          <li><a href="#" className="text-gray-700 hover:text-green-600">Dashboard Pemilik</a></li>
-          <li><a href="#" className="text-gray-700 hover:text-green-600">Favorit</a></li>
+          <li>
+            <NavLink
+            to="/"
+            className={({ isActive }) =>
+            isActive
+            ? "text-green-600 text-xl font-semibold border-green-600 pb-1"
+            : "text-gray-700 hover:text-green-600"
+          }
+          >
+            Cari Kost
+            </NavLink>
+            </li>          
+            
+            <li>
+              <a 
+              href="#" className="text-gray-700 text-xl hover:text-green-600"
+              >
+                Dashboard Pemilik
+                </a>
+                </li>
         </ul>
-
         {isLogin ? (
-  <div className="relative">
-    <button
-      onClick={() => setShowMenu(!showMenu)}
-      className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200"
-    >
-      <img
+        <div className="relative">
+        <button
+        onClick={() => setShowMenu(!showMenu)}
+        className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200"
+        >
+        <img
         src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
         alt="Profile"
         className="w-6 h-6"
-      />
-      Profil
-    </button>
+        />
+        Profil
+        </button>
 
-    {showMenu && (
-      <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
+        {showMenu && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
         <Link
           to="/profile"
           className="block px-4 py-2 hover:bg-gray-100"
@@ -98,17 +131,17 @@ const filteredKost = kostList.filter((kost) => {
         >
           Logout
         </button>
-      </div>
-    )}
-  </div>
-) : (
-  <Link
-    to="/login"
-    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-  >
-    Login
-  </Link>
-)}
+        </div>
+        )}
+        </div>
+        ) : ( 
+        <Link
+        to="/login"
+        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+        >
+        Login
+       </Link>
+       )}
 
         </nav>
 
@@ -122,9 +155,11 @@ const filteredKost = kostList.filter((kost) => {
         </p>
         <div className="flex justify-center gap-3">
           <input
-            type="text"
-            placeholder="Cari lokasi, nama kost, atau fasilitas..."
-            className="w-[500px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
+          type="text"
+          placeholder="Cari lokasi, nama kost, atau fasilitas..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-[500px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
           />
           <button className="bg-green-600 text-white px-5 py-3 rounded-lg hover:bg-green-700 transition">
             Cari
@@ -191,9 +226,11 @@ const filteredKost = kostList.filter((kost) => {
           <div className="mb-6">
             <h3 className="font-semibold text-gray-800 mb-3">Harga Maks (Rp)</h3>
             <input
-              type="number"
-              placeholder="cth: 2000000"
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
+            type="text"
+            placeholder="cth: 2000000"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value.replace(/\D/g, ""))}
+            className="w-full p-3 border rounded-lg"
             />
           </div>
 
