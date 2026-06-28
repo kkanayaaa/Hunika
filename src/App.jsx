@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { Routes, Route } from 'react-router-dom'
-import { useState } from 'react';
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
 import Login from './pages/login/login';
 import Profile from './pages/profile/profile'
 import SearchKost from './pages/search-kost/search-kost';
@@ -11,6 +11,15 @@ import ReviewKos from './pages/Review/ReviewKos';
 
 
 const App = () =>{
+  const [isLoggedIn, setIsLoggedIn] = useState(
+  localStorage.getItem("isLogin") === "true"
+);
+
+const handleLogout = () => {
+  localStorage.removeItem("isLogin"); // Menghapus status login
+  setIsLoggedIn(false);              // Memperbarui state agar tampilan berubah
+};
+
   return (
     <div className='in-h-screen bg-slate-50 text-slate-800'>
       <Navbar 
@@ -23,7 +32,7 @@ const App = () =>{
       <div className="p-6">
         <Routes>
           {/* Halaman Utama: Pencarian Kos */}
-          <Route path="/" element={<SearchKost />} />
+          <Route path="/" element={<SearchKost isLoggedIn={isLoggedIn} />} />
 
           {/* Halaman Detail Kos (Menggunakan parameter ID unik kos) */}
           <Route path="/detail/:id" element={<DetailKost />} />

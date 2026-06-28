@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 
-export default function SearchKost() {
+export default function SearchKost({ isLoggedIn, handleLogout }) {
 const [selectedFacility, setSelectedFacility] = useState([]);
 const [selectedRoomType, setSelectedRoomType] = useState("");
 
@@ -18,10 +19,10 @@ const status = localStorage.getItem("isLogin");
 setIsLogin(status === "true");
 }, []);
 
-const handleLogout = () => {
+/* const handleLogout = () => {
   localStorage.removeItem("isLogin");
   setIsLogin(false);
-};
+}; */
 
 const [search, setSearch] = useState("");
 const [maxPrice,setMaxPrice]=useState("");
@@ -144,6 +145,12 @@ const filteredKost = kostList.filter((kost) => {
        )}
 
         </nav>
+
+       {/*  <Navbar 
+        isLoggedIn={isLoggedIn} 
+        role="pencari" 
+        onLogout={handleLogout} 
+        /> */}
 
       {/* HERO */}
       <section className="text-center py-16 px-5">
