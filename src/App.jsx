@@ -8,7 +8,8 @@ import DetailKost from './pages/detail-kost/detail-kost';
 import DashboardPemilik from './pages/Pemilik/DashboardPemilik';
 import TambahKos from './pages/Pemilik/TambahKos';
 import ReviewKos from './pages/Review/ReviewKos';
-
+import BookingPage from "./pages/Booking_and_Transactions/BookingPage";
+import TransaksiPage from "./pages/Booking_and_Transactions/TransaksiPage";
 
 const App = () =>{
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -35,7 +36,7 @@ const handleLogout = () => {
           <Route path="/" element={<SearchKost isLoggedIn={isLoggedIn} />} />
 
           {/* Halaman Detail Kos (Menggunakan parameter ID unik kos) */}
-          <Route path="/detail/:id" element={<DetailKost />} />
+          <Route path="/kost/:id" element={<DetailKost />} />
 
           {/* Halaman Otentikasi & Akun */}
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
@@ -47,6 +48,10 @@ const handleLogout = () => {
           {/* Halaman Panel Manajemen Pemilik Kos */}
           <Route path="/dashboard-pemilik" element={<DashboardPemilik />} />
           <Route path="/tambah-kos" element={<TambahKos />} />
+
+         {/* Halaman Booking & Transaksi */}
+          <Route path="/booking/:id" element={<BookingPage />} />
+          <Route path="/transaksi/:id" element={<TransaksiPage />} />
         </Routes>
       </div>
     </div>

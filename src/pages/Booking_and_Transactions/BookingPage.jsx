@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getKostById, fmt } from '../data/dataKost'
-import Navbar from '../components/Navbar'
-import Breadcrumb from '../components/Breadcrumb'
+import { getKostById, fmt } from '../../data/dataKost'
+import Navbar from '../../components/Navbar'
+import Breadcrumb from '../../components/Breadcrumb'
 
 export default function BookingPage() {
   const { id } = useParams()
@@ -38,7 +38,6 @@ export default function BookingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-gray-800">
-      <Navbar backTo={`/detail/${kost.id}`} backLabel="Kembali ke Detail" />
 
       <div className="max-w-6xl mx-auto px-6 pt-5 pb-2">
         <Breadcrumb items={[

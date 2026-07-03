@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useKostDetail } from "../../hooks/useKost";
+import { Link } from "react-router-dom";
+import Button from "../../components/Button";
 
 export default function DetailKost() {
   const { id } = useParams();
@@ -193,9 +195,11 @@ export default function DetailKost() {
 
             <p className="text-center text-gray-600 mb-4">per bulan</p>
 
-            <button className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700">
-              Booking Sekarang
-            </button>
+            <Link to={`/booking/${id}`}>
+              <Button variant="emerald" isFull={true}>
+                Booking Sekarang
+              </Button>
+            </Link>
 
             <div className="mt-5 space-y-3 text-sm">
               <p>🏠 Pemilik: Bu Sari</p>

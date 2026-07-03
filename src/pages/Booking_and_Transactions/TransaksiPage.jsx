@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getKostById, fmt } from '../data/dataKost'
-import Navbar from '../components/Navbar'
-import Breadcrumb from '../components/Breadcrumb'
+import { getKostById, fmt } from '../../data/dataKost'
+import Navbar from '../../components/Navbar'
+import Breadcrumb from '../../components/Breadcrumb'
 
 const BANKS = [
   { id:'bca',  name:'BCA',      norek:'1234567890', an:'PT Hunika Digital' },
