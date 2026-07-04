@@ -33,4 +33,13 @@ export const DATA = [
 
 export const getKostById = (id) => DATA.find(k => k.id === Number(id)) || DATA[0]
 
-export const fmt = (n) => 'Rp ' + n.toLocaleString('id-ID')
+export const fmt = (price) => {
+  // Jika price tidak ada atau undefined, kembalikan teks kosong atau angka 0
+  if (price === undefined || price === null) return "Rp 0";
+  
+  return price.toLocaleString('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    maximumFractionDigits: 0
+  });
+};

@@ -8,7 +8,7 @@ export default function KostCard({ kost }) {
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition border border-slate-100 block"
     >
       <img
-        src={kost.img}
+        src={kost.img || '/path/to/placeholder.jpg'}
         alt={kost.name}
         className="w-full h-52 object-cover"
       />

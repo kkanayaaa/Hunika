@@ -1,43 +1,21 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { KostContext } from "../context/KostContext"; 
 
-// Custom hook: ambil data kost dari "API" (kost-data.json)
-// dipakai bareng di SearchKost & DetailKost supaya logic fetch-nya gak diulang.
-export default function useKost() {
-  const [kostList, setKostList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// Hook utama untuk ambil daftar semua kost
+export function useKost() {
+  const { kosts } = useContext(KostContext); 
+  
+  //set loading false karena data dari Context sudah siap di memori
+  const loading = false; 
+  const error = null;
 
-  useEffect(() => {
-    let isMounted = true;
-
-    setLoading(true);
-    fetch("/kost-data.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Gagal mengambil data kost");
-        return res.json();
-      })
-      .then((data) => {
-        if (isMounted) setKostList(data);
-      })
-      .catch((err) => {
-        if (isMounted) setError(err.message);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return { kostList, loading, error };
+  return { kostList: kosts, loading, error };
 }
 
-// Custom hook turunan: ambil 1 kost spesifik berdasarkan id
-// (contoh custom hook yang "compose" custom hook lain)
+// Hook turunan untuk ambil 1 kost 
 export function useKostDetail(id) {
-  const { kostList, loading, error } = useKost();
-  const kost = kostList.find((k) => String(k.id) === String(id));
-  return { kost, loading, error };
+  const { kostList } = useKost();
+  const kost = kostList.find((k) => k.id === parseInt(id));
+  
+  return { kost, loading: false, error: null };
 }

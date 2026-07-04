@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { KostProvider } from "./context/KostContext";
 import Navbar from "./components/Navbar";
 import Login from './pages/login/login';
 import Profile from './pages/profile/profile'
@@ -22,6 +23,7 @@ const handleLogout = () => {
 };
 
   return (
+    <KostProvider>
     <div className='in-h-screen bg-slate-50 text-slate-800'>
       <Navbar 
       isLoggedIn={isLoggedIn} 
@@ -47,7 +49,7 @@ const handleLogout = () => {
 
           {/* Halaman Panel Manajemen Pemilik Kos */}
           <Route path="/dashboard-pemilik" element={<DashboardPemilik />} />
-          <Route path="/tambah-kos" element={<TambahKos />} />
+          <Route path="/tambah-kost" element={<TambahKos />} />
 
          {/* Halaman Booking & Transaksi */}
           <Route path="/booking/:id" element={<BookingPage />} />
@@ -55,6 +57,7 @@ const handleLogout = () => {
         </Routes>
       </div>
     </div>
+    </KostProvider>
     
   );
 } 

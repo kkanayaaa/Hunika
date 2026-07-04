@@ -1,35 +1,43 @@
-import { useState, useMemo } from 'react'
-import { DATA } from '../data/dataKost'
-import Navbar from '../components/Navbar'
-import KostCard from '../components/KostCard'
+import { useState, useMemo, useContext } from 'react';
+import { KostContext } from '../context/KostContext';
+import Navbar from '../components/Navbar';
+import KostCard from '../components/KostCard';
 
 export default function SearchPage() {
-  const [query, setQuery]       = useState('')
-  const [maxPrice, setMaxPrice] = useState('')
-  const [fasFilter, setFasFilter] = useState([])
-  const [tipeFilter, setTipeFilter] = useState('')
+  // Mengambil data dari Context
+  const { kosts } = useContext(KostContext);
+
+  const [maxPrice, setMaxPrice] = useState('');
+  const [fasFilter, setFasFilter] = useState([]);
+  const [tipeFilter, setTipeFilter] = useState('');
+  const [query, setQuery] = useState('');
 
   const toggleFas = (val) =>
-    setFasFilter(prev => prev.includes(val) ? prev.filter(x => x !== val) : [...prev, val])
+    setFasFilter(prev => prev.includes(val) ? prev.filter(x => x !== val) : [...prev, val]);
 
   const resetFilter = () => {
-    setQuery(''); setMaxPrice(''); setFasFilter([]); setTipeFilter('')
-  }
+    setQuery(''); setMaxPrice(''); setFasFilter([]); setTipeFilter('');
+  };
 
-  const filtered = useMemo(() => DATA.filter(k => {
-    if (query && !k.name.toLowerCase().includes(query.toLowerCase()) &&
-        !k.area.toLowerCase().includes(query.toLowerCase())) return false
-    if (maxPrice && k.price > Number(maxPrice)) return false
-    if (fasFilter.length) {
-      const allFas = [...k.fasKamar, ...k.fasUmum].join(' ')
-      if (!fasFilter.every(f => allFas.toLowerCase().includes(f.toLowerCase()))) return false
-    }
-    if (tipeFilter) {
-      const hasType = k.roomTypes.some(r => r.name === tipeFilter)
-      if (!hasType) return false
-    }
-    return true
-  }), [query, maxPrice, fasFilter, tipeFilter])
+  // Menggunakan data dari kosts (Context) sebagai sumber utama
+  const filtered = useMemo(() => {
+    if (!kosts) return []; // Safety check jika data belum termuat
+    
+    return kosts.filter(k => {
+      if (query && !k.name.toLowerCase().includes(query.toLowerCase()) &&
+          !k.area.toLowerCase().includes(query.toLowerCase())) return false;
+      if (maxPrice && k.price > Number(maxPrice)) return false;
+      if (fasFilter.length) {
+        const allFas = [...k.fasKamar, ...k.fasUmum].join(' ');
+        if (!fasFilter.every(f => allFas.toLowerCase().includes(f.toLowerCase()))) return false;
+      }
+      if (tipeFilter) {
+        const hasType = k.roomTypes.some(r => r.name === tipeFilter);
+        if (!hasType) return false;
+      }
+      return true;
+    });
+  }, [kosts, query, maxPrice, fasFilter, tipeFilter]);
 
   return (
     <div className="min-h-screen bg-slate-100">

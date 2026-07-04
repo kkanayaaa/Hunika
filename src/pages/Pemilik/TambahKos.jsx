@@ -1,10 +1,20 @@
 import React, { useState, useRef } from 'react';
+import {useContext} from "react";
+import { KostContext } from "../../context/KostContext";
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar'; 
 import CardWrapper from '../../components/CardWrapper'; 
 import Button from '../../components/Button'; 
 
 function TambahKos({onViewChange}) {
-  
+  const { kosts, updateKost } = useContext(KostContext);
+
+  const handleTambah = (dataBaru) => {
+    const kostBaru = { ...dataBaru, id: Date.now() }; // Tambahkan ID unik
+    updateKost([...kosts, kostBaru]); // Simpan ke Context & LocalStorage
+    alert("Kost berhasil ditambah!");
+};
+
   const [formData, setFormData] = useState({
     namaKos: '',
     wilayah: 'Jakarta Selatan',
@@ -53,22 +63,31 @@ function TambahKos({onViewChange}) {
   };
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const payload = {
-      ...formData,
-      fasilitas,
-      gambar: imagePreview,
-    };
-    console.log('Data Properti Kos Baru Siap Dikirim:', payload);
-    alert('Informasi kos berhasil disimpan! (Lihat console log)');
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  const kosBaru = {
+    id: Date.now(), // Bikin ID unik otomatis pakai waktu saat ini
+    name: formData.namaKos, // Ambil dari input Nama Kos
+    loc: formData.wilayah,  // Ambil dari input Wilayah
+    price: Number(formData.harga), // Pastikan harga jadi angka
+    status: 'Tersedia',
+    statusType: 'available',
+    // Bisa kasih gambar default kalau belum ada fitur upload sungguhan
+    img: "/images-hunika/1.jpg" 
   };
+  updateKost([...kosts, kosBaru]);
+  alert("Informasi kos berhasil disimpan!");
+  navigate('/dashboard-pemilik');
+ };
+
+  
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans antialiased selection:bg-emerald-500/10">
       
      
-      <Navbar isLoggedIn={true} role="pemilik" />
+      {/* <Navbar isLoggedIn={true} role="pemilik" /> */}
 
       
       <main className="max-w-3xl mx-auto px-6 py-10">
