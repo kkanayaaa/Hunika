@@ -77,14 +77,14 @@ export default function BookingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-gray-800">
-      <Navbar backTo={`/detail/${kost.id}`} backLabel="Kembali ke Detail" />
+      {/* <Navbar backTo={`/detail/${kost.id}`} backLabel="Kembali ke Detail" /> */}
 
       <div className="max-w-6xl mx-auto px-6 pt-5 pb-2">
-        <Breadcrumb items={[
+        {/* <Breadcrumb items={[
           { to: '/', label: 'Beranda' },
           { to: `/detail/${kost.id}`, label: 'Detail Kost' },
           { label: 'Booking' }
-        ]} />
+        ]} /> */}
       </div>
 
       {/* STEP INDICATOR */}
