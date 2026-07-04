@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar({ isLoggedIn, role, onLogout }) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navLinkClass = "text-sm font-medium hover:text-green-600 transition-colors duration-200";
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-100">
@@ -12,18 +13,24 @@ export default function Navbar({ isLoggedIn, role, onLogout }) {
       </Link>
 
       <div className="flex items-center gap-6 text-sm font-medium text-slate-600">
-        {(!isLoggedIn || role === 'pencari') && (
-          <NavLink to="/" className={({ isActive }) => isActive ? "text-emerald-600 border-b-2 border-emerald-600 pb-1" : "hover:text-emerald-600"}>
-            Cari Kos
-          </NavLink>
-        )}
-        {/* {isLoggedIn && role === 'pemilik' && (
-          <NavLink to="/dashboard-pemilik" className={({ isActive }) => isActive ? "text-emerald-600 border-b-2 border-emerald-600 pb-1" : "hover:text-emerald-600"}>
-            Dashboard Pemilik
-          </NavLink>
-        )} */}
+       {isLoggedIn && role === 'pemilik' && (
+  <>
+    <NavLink to="/" className={({isActive}) => `${navLinkClass} ${isActive ? 'text-green-600' : 'text-slate-600'}`}>
+      Cari Kos
+    </NavLink>
+    <NavLink to="/dashboard-pemilik" className={({isActive}) => `${navLinkClass} ${isActive ? 'text-green-600' : 'text-slate-600'}`}>
+      Dashboard Pemilik
+    </NavLink>
+  </>
+)}
 
-        {/* Menu untuk Pemilik (Muncul jika sudah login) */}
+{isLoggedIn && role === 'pencari' && (
+  <NavLink to="/" className={({isActive}) => `${navLinkClass} ${isActive ? 'text-green-600' : 'text-slate-600'}`}>
+    Cari Kos
+  </NavLink>
+)}
+
+        {/* Menu untuk Pemilik (Muncul jika sudah login)
         {isLoggedIn && (
           <NavLink 
             to="/dashboard-pemilik" 
@@ -31,7 +38,7 @@ export default function Navbar({ isLoggedIn, role, onLogout }) {
           >
             Dashboard Pemilik
           </NavLink>
-        )}
+        )} */}
       </div>
 
       <div className="flex items-center gap-3">

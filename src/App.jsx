@@ -13,21 +13,23 @@ import BookingPage from "./pages/Booking_and_Transactions/BookingPage";
 import TransaksiPage from "./pages/Booking_and_Transactions/TransaksiPage";
 
 const App = () =>{
-  const [isLoggedIn, setIsLoggedIn] = useState(
-  localStorage.getItem("isLogin") === "true"
-);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("isLogin"));
+  const [role, setRole] = useState(localStorage.getItem("role") || "");
 
 const handleLogout = () => {
-  localStorage.removeItem("isLogin"); // Menghapus status login
-  setIsLoggedIn(false);              // Memperbarui state agar tampilan berubah
-};
+   localStorage.removeItem("isLogin");
+    localStorage.removeItem("role");
+    setIsLoggedIn(false); // Navbar langsung berubah karena state ini
+    setRole("");
+    navigate("/");
+  };;
 
   return (
     <KostProvider>
     <div className='in-h-screen bg-slate-50 text-slate-800'>
       <Navbar 
       isLoggedIn={isLoggedIn} 
-      role="pencari" 
+      role={role}
       onLogout={handleLogout}
       />
 
