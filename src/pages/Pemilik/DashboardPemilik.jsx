@@ -27,10 +27,10 @@ function DashboardPemilik() {
  const handleEdit = (e) => {
   e.preventDefault(); // Mencegah halaman refresh
   
-  // Pastikan data yang dikirim adalah 'selectedKos' yang sudah di-update di state
+ 
   const updatedData = kosts.map(k => k.id === selectedKos.id ? selectedKos : k);
   
-  updateKost(updatedData); // Ini akan memicu update ke semua halaman
+  updateKost(updatedData); 
   setIsModalOpen(false);
   alert("Data berhasil diubah!");
 };
@@ -38,7 +38,7 @@ function DashboardPemilik() {
   const handleDelete = (id) => {
   if (window.confirm("Yakin ingin menghapus kost ini?")) {
     const updatedData = kosts.filter((item) => item.id !== id);
-    updateKost(updatedData); // Panggil fungsi dari Context
+    updateKost(updatedData); 
   }
 };
 

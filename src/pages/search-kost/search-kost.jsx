@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {useKost} from "../../hooks/useKost";
+import useKost from "../../hooks/useKost";
 import KostCard from "../../components/KostCard";
 import FilterSidebar from "../../components/FilterSidebar";
 
@@ -10,43 +10,26 @@ export default function SearchKost() {
   const [search, setSearch] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [showMenu, setShowMenu] = useState(false);
-  const [kostList, setKostList] = useState([]);
-
-
-
-// 2. Fetch data dari folder public
-useEffect(() => {
-  fetch('/kost-data.json')
-    .then((response) => response.json())
-    .then((data) => setKostList(data))
-    .catch((err) => console.error("Gagal:", err));
-}, []);
 
   const [isLogin, setIsLogin] = useState(
     localStorage.getItem("isLogin") === "true"
   );
- 
- 
+
+  useEffect(() => {
+    const status = localStorage.getItem("isLogin");
+    setIsLogin(status === "true");
+  }, []);
 
   // custom hook: fetch data kost dari "API" (kost-data.json)
-/*   const { kostList, loading, error } = useKost(); */
+  const { kostList, loading, error } = useKost();
 
   const filteredKost = kostList.filter((kost) => {
-    const facilities = kost.facilities || []; // Sesuaikan jika di JSON namanya bukan 'facilities'
+    const facilityMatch =
+      selectedFacility.length === 0 ||
+      selectedFacility.every((facility) => kost.facilities.includes(facility));
 
-  // 2. Ubah semua fasilitas di data jadi huruf kecil agar cocok dengan filter
-  const lowerFacilities = facilities.map(f => f.toLowerCase());
-
-  // 3. Cek fasilitas (pastikan tidak case-sensitive)
-  const facilityMatch = selectedFacility.length === 0 || 
-    selectedFacility.every(f => lowerFacilities.includes(f.toLowerCase()));
-
-  // 4. Cek Nama/Pencarian
-  const nameMatch = (kost.name || "").toLowerCase().includes(search.toLowerCase());
-
-  
-
-  const roomMatch = selectedRoomType === "" || kost.roomType === selectedRoomType;
+    const roomMatch =
+      selectedRoomType === "" || kost.roomType === selectedRoomType;
 
     const searchMatch =
       kost.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -55,7 +38,7 @@ useEffect(() => {
         facility.toLowerCase().includes(search.toLowerCase())
       );
 
-    const price = Number((kost.price?.toString() || "0").replace(/\./g, ""));
+    const price = Number(kost.price.replace(/\./g, ""));
     const inputPrice = Number(maxPrice.replace(/\./g, ""));
     const priceMatch = maxPrice === "" || price <= inputPrice;
 
@@ -64,8 +47,8 @@ useEffect(() => {
 
   return (
     <div className="bg-slate-100 min-h-screen text-slate-800 font-sans">
-      {/* NAVBAR */}
-      {/* <nav className="bg-white px-12 py-4 flex justify-between items-center shadow-md">
+      {/* NAVBAR
+      <nav className="bg-white px-12 py-4 flex justify-between items-center shadow-md">
         <div className="text-3xl font-bold text-green-600">Hunika</div>
 
         <ul className="flex gap-8">
@@ -130,7 +113,7 @@ useEffect(() => {
             Login
           </Link>
         )}
-      </nav>
+      </nav> */}
 
       {/* HERO */}
       <section className="text-center py-16 px-5">
@@ -166,11 +149,16 @@ useEffect(() => {
 
         {/* LIST KOST */}
         <main className="flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filteredKost.map((kost) => (
-              <KostCard key={kost.id} kost={kost} />
-            ))}
-          </div>
+          {loading && <p className="text-gray-500">Memuat data kost...</p>}
+          {error && <p className="text-red-500">Gagal memuat data: {error}</p>}
+
+          {!loading && !error && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {filteredKost.map((kost) => (
+                <KostCard key={kost.id} kost={kost} />
+              ))}
+            </div>
+          )}
         </main>
       </div>
     </div>

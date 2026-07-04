@@ -11,13 +11,10 @@ export default function BookingPage() {
   const { kosts } = useContext(KostContext);
   console.log("Data kosts dari context:", kosts);
 
-  // 1. Cari kost berdasarkan ID dari URL
-  console.log(kosts); // Debug: cek isi kosts
-  const kost = kosts.find((k) => k.id == id);
-  console.log("ID dari URL:", id);
 
-  // 2. Pindahkan SEMUA useState ke atas sini (di luar kondisi apa pun)
-  // Kita beri nilai awal null atau string kosong agar tidak error saat kost belum ada
+  const kost = kosts.find((k) => String(k.id) === String(id));
+  
+
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [checkin, setCheckin] = useState('');
   const [duration, setDuration] = useState(1);
@@ -27,17 +24,17 @@ export default function BookingPage() {
     alamat: '', emergencyName: '', emergencyPhone: '' 
   });
 
-  // 3. Tambahkan loading state atau return lebih awal setelah hook dipanggil
+
   if (!kost) {
     return <div className="p-10 text-center">Memuat data...</div>;
   }
 
-  // Set nilai awal selectedRoom jika belum di-set setelah data ada
+
   if (!selectedRoom && kost.roomTypes?.length > 0) {
     setSelectedRoom(kost.roomTypes[0]);
   }
 
-  // 4. Kalkulasi (pastikan selectedRoom tidak null)
+ 
   const discounts = { 1: 0, 3: 0, 6: 0.05, 12: 0.10 };
   const discount = discounts[duration] || 0;
   const subtotal = selectedRoom ? selectedRoom.price * duration : 0;
@@ -63,7 +60,7 @@ export default function BookingPage() {
     return;
   }
   
-  // Sekarang aman karena sudah dicek !selectedRoom
+  
   const booking = { 
     kostId: kost.id, 
     roomName: selectedRoom.name, 

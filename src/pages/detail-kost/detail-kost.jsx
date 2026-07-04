@@ -1,37 +1,41 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import {useContext} from "react";
-import  { KostContext } from "../../context/KostContext";
+import { useKostDetail } from "../../hooks/useKost";
 import { Link } from "react-router-dom";
-import Button from "../../components/Button";
 
 export default function DetailKost() {
   const { id } = useParams();
-  const { kosts } = useContext(KostContext);
-
-  // // Cari kost yang sesuai dengan ID dari URL
-  const kost = kosts.find((k) => k.id === parseInt(id));
 
   const [name, setName] = useState("");
   const [ratingInput, setRatingInput] = useState(0);
   const [comment, setComment] = useState("");
   const [reviews, setReviews] = useState([]);
 
-  
+  const { kost, loading, error } = useKostDetail(id);
 
-  
-
-  // Jika kost belum ditemukan di Context
-  if (!kost) {
+  if (loading) {
     return (
-      <div className="p-10 text-center">
-        <h1 className="text-2xl font-bold">Kost tidak ditemukan</h1>
-        <Link to="/" className="text-emerald-600 underline">Kembali ke Beranda</Link>
+      <div className="p-10">
+        <p className="text-gray-500">Memuat data kost...</p>
       </div>
     );
   }
 
-  
+  if (error) {
+    return (
+      <div className="p-10">
+        <p className="text-red-500">Gagal memuat data: {error}</p>
+      </div>
+    );
+  }
+
+  if (!kost) {
+    return (
+      <div className="p-10">
+        <h1 className="text-2xl font-bold">Kost tidak ditemukan</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-slate-100 min-h-screen p-8">
@@ -68,7 +72,7 @@ export default function DetailKost() {
             <h2 className="text-xl font-bold mb-4">Fasilitas</h2>
 
             <div className="grid grid-cols-2 gap-3">
-              {kost?.fasKamar?.map((item, index) => (
+              {kost.facilities.map((item, index) => (
                 <div key={index} className="bg-green-50 rounded-lg p-3">
                   ✅ {item}
                 </div>
@@ -189,11 +193,12 @@ export default function DetailKost() {
 
             <p className="text-center text-gray-600 mb-4">per bulan</p>
 
-            <Link to={`/booking/${id}`}>
-              <Button variant="emerald" isFull={true}>
-                Booking Sekarang
-              </Button>
-            </Link>
+            <Link 
+  to={`/booking/${id}`} 
+  className="bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition"
+>
+  Booking Sekarang
+</Link>
 
             <div className="mt-5 space-y-3 text-sm">
               <p>🏠 Pemilik: Bu Sari</p>
